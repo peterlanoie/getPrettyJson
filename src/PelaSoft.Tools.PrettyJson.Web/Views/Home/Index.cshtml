@@ -1,0 +1,25 @@
+﻿@model PelaSoft.Tools.PrettyJson.Web.Models.FormatVM
+@{
+	ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+	<h1>Pretty JSON</h1>
+	<p class="lead">Get Pretty JSON Responses.</p>
+	@using (Html.BeginForm("index", "home", FormMethod.Get))
+	{
+		<div>URL To Make Pretty:</div>
+		<div>@Html.TextBox("url", Model.Url, new { @class = "url" })</div>
+		<div><input type="submit" value="Make Pretty Link" /></div>
+	}
+	@if (!string.IsNullOrWhiteSpace(Model.FormatLink))
+	{
+		<div>
+			<h3>Link to formatted JSON: (<a href="@Model.FormatLink" target="_blank">Open in new tab/window</a>*)</h3>
+			@Html.TextBox("formatLink", @Model.FormatLink, new { @class = "url", disabled = "disabled", onfocus = "this.select();" })
+			<small>* Please note that if you have a browser extension that formats JSON, you'll need to view source to see the raw response.</small>
+			<h3>Here's how it currently looks:</h3>
+			<iframe src="@Model.DisplayUrl" id="formattedJson"></iframe>
+		</div>
+	}
+</div>
